@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #FF6B35;
+  --primary-dark: #EA580C;
+  --accent-color: #FF8C42;
+  
+  --primary-gradient: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+  --hover-gradient: linear-gradient(135deg, #EA580C 0%, #FF6B35 100%);
+  
+  --secondary-color: #f8f9fa;
+  --text-color: #1f2937;
+  --text-light: #6b7280;
+  --border-color: #e5e7eb;
+  --white: #ffffff;
+  
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.3);
+  --backdrop-blur: blur(12px);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  color: var(--text-color);
+  line-height: 1.6;
+  background-color: var(--white);
+  overflow-x: hidden;
+}
+
+/* 添加平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
+.btn {
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+}
