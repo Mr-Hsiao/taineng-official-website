@@ -2,14 +2,40 @@
   <section id="home" class="hero">
     <div class="container hero-container">
       <div class="hero-content">
-        <div class="badge">全新发布 2.0</div>
+        <div class="badge">全新发布 3.0</div>
         <h1 class="hero-title">智云 PMS <span class="gradient-text">智慧酒店管理</span></h1>
         <h2 class="hero-subtitle">新一代云原生酒店管理系统</h2>
         <p class="hero-description">
           基于云服务架构的酒店一体化管理平台，通过多端应用、深度业务整合与极致操作体验，帮助酒店实现高效运营、降本增效、服务升级。
         </p>
         <div class="hero-buttons">
-          <button class="btn btn-primary btn-lg" @click="scrollTo('contact')">立即体验</button>
+          <RouterLink class="btn btn-primary btn-lg" to="/trial">申请试用</RouterLink>
+          <div v-if="demo.entries.length" class="demo-menu" ref="demoMenuRef">
+            <button
+              class="btn btn-outline btn-lg demo-trigger"
+              type="button"
+              :aria-expanded="demoOpen"
+              aria-haspopup="menu"
+              @click="toggleDemoMenu"
+            >
+              {{ demo.label }}
+              <span class="demo-caret" :class="{ open: demoOpen }" aria-hidden="true"></span>
+            </button>
+            <div v-show="demoOpen" class="demo-dropdown" role="menu">
+              <a
+                v-for="entry in demo.entries"
+                :key="entry.name"
+                class="demo-item"
+                role="menuitem"
+                :href="entry.url"
+                :target="demo.openInNewTab ? '_blank' : '_self'"
+                rel="noopener noreferrer"
+                @click="demoOpen = false"
+              >
+                {{ entry.name }}
+              </a>
+            </div>
+          </div>
           <button class="btn btn-outline btn-lg" @click="scrollTo('features')">了解更多</button>
         </div>
         
@@ -92,12 +118,39 @@
 </template>
 
 <script setup>
+import { inject, onBeforeUnmount, onMounted, ref } from 'vue'
+
+const { demo } = inject('siteConfig')
+const demoOpen = ref(false)
+const demoMenuRef = ref(null)
+
 const scrollTo = (id) => {
-  const element = document.getElementById(id)
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' })
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+}
+
+const toggleDemoMenu = () => {
+  demoOpen.value = !demoOpen.value
+}
+
+const onDocumentClick = (event) => {
+  if (!demoMenuRef.value?.contains(event.target)) {
+    demoOpen.value = false
   }
 }
+
+const onEscape = (event) => {
+  if (event.key === 'Escape') demoOpen.value = false
+}
+
+onMounted(() => {
+  document.addEventListener('click', onDocumentClick)
+  document.addEventListener('keydown', onEscape)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', onDocumentClick)
+  document.removeEventListener('keydown', onEscape)
+})
 </script>
 
 <style scoped>
@@ -194,12 +247,67 @@ const scrollTo = (id) => {
   display: flex;
   gap: 20px;
   margin-bottom: 48px;
+  flex-wrap: wrap;
 }
 
 .btn-lg {
   padding: 14px 32px;
   font-size: 16px;
   border-radius: 8px;
+}
+
+.demo-menu {
+  position: relative;
+}
+
+.demo-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.demo-caret {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid currentColor;
+  transition: transform 0.2s ease;
+}
+
+.demo-caret.open {
+  transform: rotate(180deg);
+}
+
+.demo-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 100%;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid rgba(255, 107, 53, 0.18);
+  border-radius: 12px;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+  z-index: 20;
+  display: grid;
+  gap: 4px;
+}
+
+.demo-item {
+  display: block;
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: #374151;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  transition: background 0.2s, color 0.2s;
+}
+
+.demo-item:hover {
+  background: rgba(255, 107, 53, 0.08);
+  color: var(--primary-color);
 }
 
 .hero-stats {

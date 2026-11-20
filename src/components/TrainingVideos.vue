@@ -122,7 +122,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, inject } from 'vue'
+
+const { trainingVideos } = inject('siteConfig')
 
 const loading = ref(true)
 const topics = ref([])
@@ -165,7 +167,7 @@ const loadTopics = async () => {
     // 按照Dart代码的格式包装参数
     // Dart: packParam(json.encode(Map.from({...})))
     const paramData = {
-      moduleId: 'iPMS.Cloud',
+      moduleId: trainingVideos.moduleId,
       available: 'true'
     }
     
@@ -174,7 +176,7 @@ const loadTopics = async () => {
     console.log('请求主题数据:', requestBody)
     
     // 直接请求API
-    const apiUrl = 'https://ihotelcloud.cn/tyman/topic/querysgtopics'
+    const apiUrl = trainingVideos.topicsUrl
     
     const response = await fetch(apiUrl, {
       method: 'POST',
@@ -231,14 +233,14 @@ const loadSubFlows = async (topicId) => {
     // 按照Dart代码的格式包装参数
     // Dart: packParam(json.encode(Map.from({...})))
     const paramData = {
-      moduleId: 'iPMS.Cloud',
+      moduleId: trainingVideos.moduleId,
       topicId: topicId
     }
     
     const requestBody = packParam(JSON.stringify(paramData))
     
     // 直接请求API
-    const apiUrl = 'https://ihotelcloud.cn/tyman/topic/querysgtopicsubflows'
+    const apiUrl = trainingVideos.subFlowsUrl
     
     const response = await fetch(apiUrl, {
       method: 'POST',
@@ -290,7 +292,11 @@ const selectVideo = (url, title) => {
 }
 
 onMounted(() => {
-  loadTopics()
+  if (trainingVideos.topicsUrl) {
+    loadTopics()
+  } else {
+    loading.value = false
+  }
 })
 </script>
 

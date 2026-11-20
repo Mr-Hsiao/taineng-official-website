@@ -1,0 +1,76 @@
+{
+  "demo": {
+    "label": "立即体验",
+    "openInNewTab": true,
+    "entries": [
+      {
+        "name": "PMS",
+        "url": "https://ihotelcloud.cn/ihcpms/#/login"
+      },
+      {
+        "name": "POS",
+        "url": "https://ihotelcloud.cn/ihcpos/#/login"
+      },
+      {
+        "name": "会员",
+        "url": "https://ihotelcloud.cn/icsp/#/login"
+      }
+    ]
+  },
+  "trial": {
+    "to": "18910208087@163.com",
+    "subject": "智云PMS官网 - 申请试用",
+    "qqGroup": {
+      "name": "智云PMS产品交流群",
+      "number": "642781153",
+      "image": "./qq-group.jpg"
+    }
+  },
+  "downloads": [
+    {
+      "name": "智云",
+      "url": "https://dl.ihotelcloud.cn/ifacebox1/iHotelPMS.exe"
+    },
+    {
+      "name": "智云格林版",
+      "url": "https://dl.ihotelcloud.cn/GreenTree/iCloudPMS.exe"
+    },
+    {
+      "name": "移动PMS",
+      "url": "https://dl.ihotelcloud.cn/ifacebox1/PmsMobile.apk"
+    },
+    {
+      "name": "移动POS",
+      "url": "https://dl.ihotelcloud.cn/ifacebox1/PosMobile.apk"
+    },
+    {
+      "name": "安卓POS桌面版",
+      "url": "https://dl.ihotelcloud.cn/ifacebox1/iCloudPOS.apk"
+    },
+    {
+      "name": "电子菜谱",
+      "url": "https://dl.ihotelcloud.cn/ifacebox1/iCloudMenu.apk"
+    },
+    {
+      "name": "接口服务",
+      "url": "https://dl.ihotelcloud.cn/ifacebox1/interface.exe"
+    },
+    {
+      "name": "安卓PMS平板版",
+      "url": "https://dl.ihotelcloud.cn/ifacebox1/iCloudPAD.apk"
+    },
+    {
+      "name": "离线服务",
+      "url": "https://dl.ihotelcloud.cn/ifacebox1/iSuperSafe.zip"
+    },
+    {
+      "name": "VC运行库",
+      "url": "https://aka.ms/vs/17/release/vc_redist.x64.exe"
+    }
+  ],
+  "trainingVideos": {
+    "topicsUrl": "https://ihotelcloud.cn/tyman/topic/querysgtopics",
+    "subFlowsUrl": "https://ihotelcloud.cn/tyman/topic/querysgtopicsubflows",
+    "moduleId": "iPMS.Cloud"
+  }
+}

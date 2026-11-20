@@ -39,9 +39,9 @@
       </div>
 
       <div class="cta-section" id="contact">
-        <h3>想了解更多？立即联系我们</h3>
-        <p>专业团队为您提供定制化解决方案</p>
-        <button class="btn btn-primary" @click="handleContact">联系我们</button>
+        <h3>想了解更多？申请试用智云 PMS</h3>
+        <p>扫码加入交流群，顾问在群里开通试用。也可拨打 400-688-3040</p>
+        <RouterLink class="btn btn-primary" to="/trial">申请试用</RouterLink>
       </div>
     </div>
   </section>
@@ -53,10 +53,6 @@ import IconChain from './IconChain.vue'
 import IconStar from './IconStar.vue'
 import IconBeach from './IconBeach.vue'
 
-const handleContact = () => {
-  // 可以在这里添加联系表单或跳转到联系页面
-  alert('请联系我们：\n电话：400-688-3040\n邮箱：keji@talent.com.com\n地址：北京市海淀区上地三街嘉华大厦B1108')
-}
 </script>
 
 <style scoped>

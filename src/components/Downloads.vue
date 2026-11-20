@@ -4,6 +4,7 @@
       <h2 class="section-title">产品下载</h2>
       <p class="section-subtitle">下载智云PMS相关产品及工具</p>
 
+      <p v-if="products.length === 0" role="status">暂无可用下载</p>
       <div class="downloads-grid">
         <div 
           v-for="product in products" 
@@ -43,52 +44,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, inject } from 'vue'
 import QRCode from 'qrcode'
 
-const products = ref([
-  {
-    name: '智云',
-    url: 'https://ihotelcloud.cn/downloads/iHotelPMS.exe'
-  },
-  {
-    name: '移动PMS',
-    url: 'https://ihotelcloud.cn/downloads/PmsMobile.apk'
-  },
-  {
-    name: '移动POS',
-    url: 'https://ihotelcloud.cn/downloads/PosMobile.apk'
-  },
-  {
-    name: '安卓POS桌面版',
-    url: 'https://ihotelcloud.cn/downloads/iCloudPOS.apk'
-  },
-  {
-    name: '电子菜谱',
-    url: 'https://ihotelcloud.cn/downloads/iCloudMenu.apk'
-  },
-  {
-    name: '接口服务',
-    url: 'https://ihotelcloud.cn/downloads/xDeviceServer.zip'
-  },
-  {
-    name: '航信PSB',
-    url: 'https://ihotelcloud.cn/downloads/iCloudPSB.zip'
-  },
-  {
-    name: 'ICSP',
-    url: 'https://ihotelcloud.cn/downloads/ICSP.zip'
-  },
-  {
-    name: 'VC运行库',
-    url: 'https://aka.ms/vs/17/release/vc_redist.x64.exe'
-  }
-])
+const { downloads: products } = inject('siteConfig')
 
 const qrcodeRefs = ref({})
 
 const getFileType = (url) => {
-  const extension = url.split('.').pop().toLowerCase()
+  const extension = new URL(url, window.location.href).pathname.split('.').pop().toLowerCase()
   const typeMap = {
     'exe': 'Windows安装包',
     'apk': 'Android应用',
@@ -100,7 +64,7 @@ const getFileType = (url) => {
 }
 
 const getFileName = (url) => {
-  return url.split('/').pop()
+  return new URL(url, window.location.href).pathname.split('/').pop()
 }
 
 const handleDownload = (productName) => {
@@ -116,7 +80,7 @@ const setQRCodeRef = (productName, el) => {
 }
 
 const generateQRCode = async (productName) => {
-  const product = products.value.find(p => p.name === productName)
+  const product = products.find(p => p.name === productName)
   if (!product) return
   
   const canvas = qrcodeRefs.value[productName]
@@ -136,16 +100,6 @@ const generateQRCode = async (productName) => {
   }
 }
 
-onMounted(() => {
-  // 预生成所有二维码
-  products.value.forEach(product => {
-    nextTick(() => {
-      if (qrcodeRefs.value[product.name]) {
-        generateQRCode(product.name)
-      }
-    })
-  })
-})
 </script>
 
 <style scoped>

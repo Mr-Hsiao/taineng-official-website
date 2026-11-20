@@ -9,18 +9,19 @@
         <div class="footer-section">
           <h4>产品中心</h4>
           <ul>
-            <li><a href="#home" @click.prevent="scrollTo('home')">智云PMS</a></li>
-            <li><a href="#downloads" @click.prevent="scrollTo('downloads')">产品下载</a></li>
-            <li><a href="#training-videos" @click.prevent="scrollTo('training-videos')">培训视频</a></li>
-            <li><a href="#features" @click.prevent="scrollTo('features')">产品特点</a></li>
+            <li><a href="/#home" @click.prevent="goHomeSection('home')">智云PMS</a></li>
+            <li><RouterLink to="/trial">申请试用</RouterLink></li>
+            <li><a href="/#downloads" @click.prevent="goHomeSection('downloads')">产品下载</a></li>
+            <li><a href="/#training-videos" @click.prevent="goHomeSection('training-videos')">培训视频</a></li>
+            <li><a href="/#features" @click.prevent="goHomeSection('features')">产品特点</a></li>
           </ul>
         </div>
         <div class="footer-section">
           <h4>关于我们</h4>
           <ul>
-            <li><a href="#home" @click.prevent="scrollTo('home')">公司简介</a></li>
-            <li><a href="#contact" @click.prevent="scrollTo('contact')">联系我们</a></li>
-            <li><a href="#scenarios" @click.prevent="scrollTo('scenarios')">适用场景</a></li>
+            <li><a href="/#home" @click.prevent="goHomeSection('home')">公司简介</a></li>
+            <li><a href="/#contact" @click.prevent="goHomeSection('contact')">联系我们</a></li>
+            <li><a href="/#scenarios" @click.prevent="goHomeSection('scenarios')">适用场景</a></li>
           </ul>
         </div>
         <div class="footer-section">
@@ -66,13 +67,18 @@
 </template>
 
 <script setup>
+import { useRoute, useRouter } from 'vue-router'
 import nationalIcon from '../assets/national.png'
 
-const scrollTo = (id) => {
-  const element = document.getElementById(id)
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' })
+const route = useRoute()
+const router = useRouter()
+
+const goHomeSection = async (id) => {
+  if (route.path !== '/') {
+    await router.push({ path: '/', hash: `#${id}` })
+    return
   }
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 }
 </script>
 

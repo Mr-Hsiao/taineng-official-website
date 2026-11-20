@@ -2,15 +2,11 @@
   <div class="app">
     <Header />
     <main>
-      <Hero />
-      <Features />
-      <Scenarios />
-      <Downloads />
-      <TrainingVideos />
+      <p v-if="configError" class="config-error" role="alert">{{ configError }}</p>
+      <RouterView />
     </main>
     <Footer />
-    <!-- 400电话浮动按钮 -->
-    <a href="tel:400-688-3040" class="floating-phone">
+    <a v-if="!isTrial" href="tel:400-688-3040" class="floating-phone">
       <div class="phone-icon-wrapper">
         <IconPhone />
       </div>
@@ -20,17 +16,26 @@
 </template>
 
 <script setup>
+import { computed, inject } from 'vue'
+import { useRoute } from 'vue-router'
 import Header from './components/Header.vue'
-import Hero from './components/Hero.vue'
-import Features from './components/Features.vue'
-import Scenarios from './components/Scenarios.vue'
-import Downloads from './components/Downloads.vue'
-import TrainingVideos from './components/TrainingVideos.vue'
 import Footer from './components/Footer.vue'
 import IconPhone from './components/IconPhone.vue'
+
+const configError = inject('siteConfigError', '')
+const route = useRoute()
+const isTrial = computed(() => route.name === 'trial')
 </script>
 
 <style scoped>
+.config-error {
+  padding: 16px;
+  margin: 0;
+  text-align: center;
+  color: #9c2f14;
+  background: #fff3ed;
+}
+
 .app {
   min-height: 100vh;
   display: flex;
@@ -43,7 +48,6 @@ main {
   padding-top: 70px;
 }
 
-/* 400电话浮动按钮 */
 .floating-phone {
   position: fixed;
   right: 30px;
@@ -88,7 +92,7 @@ main {
     bottom: 20px;
     padding: 10px 16px;
   }
-  
+
   .phone-text {
     font-size: 14px;
   }
